@@ -57,15 +57,20 @@ class Player{
         this.loadBar = new Rect(this.barConfig);
 
         window.addEventListener("mousedown", (e)=>{
+            e.preventDefault();
             this.addBullet(e);
         });
         window.addEventListener("touchstart", (e)=>{
+            e.preventDefault();
             var _e = e.touches.item(e.touches.length-1);
             this.addBullet(_e);
+            console.log(_e.clientX);
         });
 
         this.addBullet = function(e) {
-            const angle = Math.atan2(e.clientY - this.y, e.clientX - this.x);
+            var c = canvas.getBoundingClientRect();
+            var eventPos = {x: e.clientX - c.x, y: e.clientY - c.y};
+            const angle = Math.atan2(eventPos.y - this.y, eventPos.x - this.x);
             const velocity = {
                 x: Math.cos(angle) * 10,
                 y: Math.sin(angle) * 10
