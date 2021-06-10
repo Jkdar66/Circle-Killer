@@ -56,7 +56,7 @@ class Player{
         };
         this.loadBar = new Rect(this.barConfig);
 
-        window.addEventListener("click", (e)=>{
+        window.addEventListener("mousedown", (e)=>{
             this.addBullet(e);
         });
         window.addEventListener("touchstart", (e)=>{
