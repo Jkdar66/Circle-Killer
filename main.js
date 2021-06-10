@@ -57,13 +57,21 @@ class Player{
         this.loadBar = new Rect(this.barConfig);
 
         window.addEventListener("click", (e)=>{
+            this.addBullet(e);
+        });
+        window.addEventListener("touchstart", (e)=>{
+            var _e = e.touches.item(e.touches.length-1);
+            this.addBullet(_e);
+        });
+
+        this.addBullet = function(e) {
             const angle = Math.atan2(e.clientY - this.y, e.clientX - this.x);
             const velocity = {
                 x: Math.cos(angle) * 10,
                 y: Math.sin(angle) * 10
             }
             this.bullets.push(new Bullet(this.x, this.y, velocity, 8, "rgb(255, 255, 0)"));
-        });
+        }
     }
     bulletsColliedEnemies(bullet, i) {
         for (let j = 0; j < this.enemies.length; j++) {
